@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>F1 Team Standings</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+  }
+  .ferrari-bar {
+    fill: #c0392b; /* Ferrari 팀은 빨간색으로 지정 */
+  }
+  .bar {
+    fill: #95a5a6; /* 기본적으로 회색으로 지정 */
+  }
+  .team {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .rank {
+    font-size: 14px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<svg id="bar-chart"></svg>
+
+<script>
+// 데이터
+var data = [
+  { rank: 1, team: "RED BULL RACING HONDA RBPT", points: 87 },
+  { rank: 2, team: "FERRARI", points: 49 },
+  { rank: 3, team: "MCLAREN MERCEDES", points: 28 },
+  { rank: 4, team: "MERCEDES", points: 26 },
+  { rank: 5, team: "ASTON MARTIN ARAMCO MERCEDES", points: 13 },
+  { rank: 6, team: "HAAS FERRARI", points: 1 },
+  { rank: 7, team: "WILLIAMS MERCEDES", points: 0 },
+  { rank: 8, team: "KICK SAUBER FERRARI", points: 0 },
+  { rank: 9, team: "RB HONDA RBPT", points: 0 },
+  { rank: 10, team: "ALPINE RENAULT", points: 0 }
+];
+
+// SVG 요소 크기 설정
+var svgWidth = 600;
+var svgHeight = 400;
+
+// 막대 그래프 생성을 위한 SVG 요소 생성
+var svg = d3.select("#bar-chart")
+  .attr("width", svgWidth)
+  .attr("height", svgHeight);
+
+// X 축 스케일 정의
+var xScale = d3.scaleLinear()
+  .domain([0, d3.max(data, d => d.points)])
+  .range([0, svgWidth]);
+
+// 막대 그래프 그리기
+svg.selectAll("rect")
+  .data(data)
+  .enter()
+  .append("rect")
+  .attr("class", d => d.team === "FERRARI" ? "ferrari-bar" : "bar")
+  .attr("x", 0)
+  .attr("y", (d, i) => i * (svgHeight / data.length))
+  .attr("width", d => xScale(d.points))
+  .attr("height", svgHeight / data.length - 5);
+
+// 순위 표시
+svg.selectAll("text.rank")
+  .data(data)
+  .enter()
+  .append("text")
+  .attr("class", "rank")
+  .text(d => d.rank)
+  .attr("x", 5)
+  .attr("y", (d, i) => i * (svgHeight / data.length) + 20);
+
+// 팀 이름 표시
+svg.selectAll("text.team")
+  .data(data)
+  .enter()
+  .append("text")
+  .attr("class", "team")
+  .text(d => d.team)
+  .attr("x", 30)
+  .attr("y", (d, i) => i * (svgHeight / data.length) + 20);
+</script>
+</body>
+</html>
