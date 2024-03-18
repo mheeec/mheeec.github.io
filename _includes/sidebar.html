@@ -7,7 +7,7 @@
         {%- capture avatar_url -%}
           {% include img-url.html src=site.avatar %}
         {%- endcapture -%}
-        <img src="{{- avatar_url -}}" width="112" height="112" alt="avatar" onerror="this.style.display='none'">
+        <img src="{{- /assets/img/blackcat.jpg-}}" width="112" height="112" alt="avatar" onerror="this.style.display='none'">
       {%- endif -%}
     </a>
 
@@ -17,9 +17,6 @@
     <p class="site-subtitle fst-italic mb-0">{{ site.tagline }}</p>
   </header>
   <!-- .profile-wrapper -->
-  <img src="" alt="avatar" onerror="this.style.display='none'">
-  <img src="사진 경로" alt="avatar" onerror="this.style.display='none'">
-  <img src="/assets/img/blackcat.png" alt="avatar" onerror="this.style.display='none'">
 
   <nav class="flex-column flex-grow-1 w-100 ps-0">
     <ul class="nav">
